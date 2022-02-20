@@ -1,0 +1,21 @@
+<div>
+    <form>
+        <label for="firstName">First Name</label>
+        <input #contactName id="firstName" [(ngModel)]="contact.firstName" name="firstName" type="text"
+            autocomplete="off" (keypress)="keyPress($event, 'firstName')"
+            (ngModelChange)="modelChangeFn($event, 'firstName')" (focus)="clearStatus()" (keypress)="clearStatus()" />
+        <label for="lastName">Last Name</label>
+        <input id="lastName" [(ngModel)]="contact.lastName" name="lastName" type="text" autocomplete="off"
+            [ngClass]="{ 'has-error': submitting }" (keypress)="keyPress($event, 'lastName')"
+            (ngModelChange)="modelChangeFn($event, 'lastName')" (focus)="clearStatus()" />
+        <label for="phone">Phone</label>
+        <input id="phone" [(ngModel)]="contact.phone" name="phone" type="text" autocomplete="off"
+            [ngClass]="{ 'has-error': submitting }" (focus)="clearStatus()" #phoneNgModel="ngModel" minlength="10"
+            maxlength="10" (keypress)="keyPress($event, 'phone')" (ngModelChange)="modelChangeFn($event, 'phone')" />
+        <p class="error-message" *ngIf="phoneInValid">
+            Phone number must be 10 digits
+        </p>
+        <p *ngIf="success" class="success-message">Contact successfully added</p>
+        <button class="btn-add" (click)="onAddContact()" [disabled]="disabledBtn">Add Contact</button>
+    </form>
+</div>

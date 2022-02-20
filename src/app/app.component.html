@@ -1,0 +1,17 @@
+<div class="toolbar" role="banner">
+    <h1>Phone Book</h1>
+</div>
+
+<div class="content">
+
+
+    <app-contact-form (addContact)="onAddContact($event)"></app-contact-form>
+
+    <ng-container *ngTemplateOutlet="contactsLoaded ? contactsTable : null">
+    </ng-container>
+
+    <ng-template #contactsTable>
+        <app-contact-table [contacts]="contacts" (editContact)="onEditContact($event)"
+            (deleteContact)="onDeleteContact($event)"></app-contact-table>
+    </ng-template>
+</div>

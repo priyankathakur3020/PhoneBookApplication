@@ -1,0 +1,50 @@
+<div>
+    <ng-template #noData>
+        <p class="empty-table">No contacts</p>
+    </ng-template>
+
+    <ng-container *ngIf="contacts.length > 0; else noData">
+        <table class="striped-table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Phone</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let contact of contacts; index as index" [ngClass]="getRowClasses(contact.id)">
+                    <td>{{index + 1}}.</td>
+
+                    <ng-container *ngTemplateOutlet="isEditing(contact.id) ? editing: notEditing">
+                    </ng-container>
+                    <ng-template #editing>
+                        <td> <input type="text" [(ngModel)]="contact.firstName" name="firstName" autocomplete="off"
+                                (ngModelChange)="modelChangeFn($event, 'firstName', contact)" /> </td>
+                        <td> <input type="text" [(ngModel)]="contact.lastName" name="lastName" autocomplete="off"
+                                (ngModelChange)="modelChangeFn($event, 'lastName', contact)" /> </td>
+                        <td> <input type="text" [(ngModel)]="contact.phone" name="phone" autocomplete="off"
+                                (ngModelChange)="modelChangeFn($event, 'phone', contact)" minlength="10"
+                                maxlength="10" /> </td>
+                        <td>
+                            <button (click)="onCancelEdit(contact)" class="muted-button" title="Cancel">❌</button>
+                            <button (click)="onEditContact(contact)" [disabled]="disabledBtn" class="btn-success"
+                                title="Save">Save</button>
+                        </td>
+                    </ng-template>
+                    <ng-template #notEditing>
+                        <td>{{ contact.firstName }}</td>
+                        <td>{{ contact.lastName }}</td>
+                        <td>{{ contact.phone }}</td>
+                        <td class="actions">
+                            <button class="btn-edit" (click)="onBeginEdit(contact)" title="Update">Edit</button>
+                            <button (click)="onDeleteContact(contact)" class="btn-danger" title="Delete">Delete</button>
+                        </td>
+                    </ng-template>
+                </tr>
+            </tbody>
+        </table>
+    </ng-container>
+</div>

@@ -1,0 +1,20 @@
+
+form {
+    margin-bottom: 2rem;
+}
+[class*='-message'] {
+font-weight: 500;
+} 
+.error-message {
+color: #d33c40;
+}
+.success-message {
+color: #32a95d;
+}
+.btn-add{
+    background-color: black;
+}
+
+button:disabled{
+    opacity: 0.3;
+  }
